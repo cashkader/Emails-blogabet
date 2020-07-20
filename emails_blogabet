@@ -1,4 +1,4 @@
-import imaplib, re
+import imaplib, re, pyautogui
 from selenium import webdriver
 
 mail = imaplib.IMAP4_SSL('imap.gmail.com')
@@ -30,29 +30,3 @@ pick = re.search("(?P<url>https?://[^\s]+blogabet.com/pick[^\s]+</)", raw_email)
 driver = webdriver.Chrome(executable_path=r'C:\Users\Markos\AppData\Local\Programs\Python\Python38-32\chromedriver.exe')
 driver.maximize_window()
 driver.get(pick)
-##
-##from selenium.webdriver.common.keys import Keys
-##from selenium.webdriver.common.by import By
-##import time
-##
-###get the window handle after the window has opened
-##window_before = driver.window_handles[0]
-##window_before_title = driver.title
-##print(window_before_title)
-##driver.switch_to.window(window_before)
-##
-###open a new window
-##driver.execute_script("window.open('http://www.twitter.com', 'new window')")
-##
-###get the window handle after a new window has opened
-##window_after = driver.window_handles[1]
-##
-###switch on to new child window
-##driver.switch_to.window(window_after)
-##time.sleep(10)
-##
-##window_after_title = driver.title
-##print(window_after_title)
-##
-##import pyautogui
-##

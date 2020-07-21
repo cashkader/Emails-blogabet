@@ -1,4 +1,4 @@
-import imaplib, re, pickle, time
+import imaplib, re, time
 import pyautogui as pag
 from selenium import webdriver
 
@@ -12,38 +12,34 @@ username.send_keys('cashcadeur@gmail.com')
 password.send_keys('mr619619')
 time.sleep(1)
 pag.press('enter')
-#pickle.dump( driver.get_cookies() , open("cookies.pkl","wb"))
 condition = True
 
 while True:
-    mail.select("inbox") # connect to inbox
-    result, data = mail.search(None, '(FROM "no-reply@blogabet.com")')
-    ids = data[0] # here's the body, which is raw text of the whole email
-    id_list = ids.split() # data is a list
-    latest_email_id = id_list[-1] # get the latest
-    result, data = mail.fetch(latest_email_id, "(RFC822)") # fetch the email body (RFC822) 
-    raw_email = data[0][1] # here's the body, which is raw text of the whole email
-    email_text = raw_email.decode('ISO-8859-1')
-    if condition:
-        value = email_text
-        condition = False
-    old_value, value = value, email_text
-    print ('Loop Done')
-    if not value == old_value: break    
+    while True:
+        mail.select("inbox") # connect to inbox
+        result, data = mail.search(None, '(FROM "no-reply@blogabet.com")')
+        ids = data[0] # here's the body, which is raw text of the whole email
+        id_list = ids.split() # data is a list
+        latest_email_id = id_list[-1] # get the latest
+        result, data = mail.fetch(latest_email_id, "(RFC822)") # fetch the email body (RFC822) 
+        raw_email = data[0][1] # here's the body, which is raw text of the whole email
+        email_text = raw_email.decode('ISO-8859-1')
+        if condition:
+            value = email_text
+            condition = False
+        old_value, value = value, email_text
+        print ('Loop Done')
+        if not value == old_value: break    
 
-pick = re.search("(?P<url>https?://[^\s]+blogabet.com/pick[^\s]+</)", email_text).group("url")
+    pick = re.search("(?P<url>https?://[^\s]+blogabet.com/pick[^\s]+</)", email_text).group("url")
 
-#cookies = pickle.load(open("cookies.pkl", "rb"))
-#for cookie in cookies:
-#driver.add_cookie(cookie)
-
-# driver.maximize_window()
-driver.get(pick)
-a = pag.locateOnScreen('not_robot.png', grayscale=True, confidence=.5)
-if a is not None:
-    pag.moveTo(878, 861, 0.5, pag.easeInQuad)
-    pag.click()
-    pag.moveTo(500,500)   
-    pag.moveTo(a[0]+5,a[1]+20,1, pag.easeInQuad)
-    pag.mouseDown()
-    pag.mouseUp()
+    driver.get(pick)
+    pag.hotkey('win', '1')
+    a = pag.locateOnScreen('not_robot.png', grayscale=True, confidence=.5)
+    if a is not None:
+        pag.moveTo(878, 861, 0.5)
+        pag.click()
+        pag.moveTo(500,500)   
+        pag.moveTo(a[0]+25,a[1]+35,1, pag.easeOutQuad)
+        pag.mouseDown()
+        pag.mouseUp()

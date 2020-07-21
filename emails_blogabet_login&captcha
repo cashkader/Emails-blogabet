@@ -28,7 +28,6 @@ while True:
             value = email_text
             condition = False
         old_value, value = value, email_text
-        print ('Loop Done')
         if not value == old_value: break    
 
     pick = re.search("(?P<url>https?://[^\s]+blogabet.com/pick[^\s]+</)", email_text).group("url")

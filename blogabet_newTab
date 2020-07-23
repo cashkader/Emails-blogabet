@@ -1,0 +1,35 @@
+#! python3
+
+import imaplib, re, pyperclip
+import pyautogui as pag
+from selenium import webdriver
+
+mail = imaplib.IMAP4_SSL('imap.gmail.com')
+mail.login('cashcadeur@gmail.com', 'mr619619')
+condition = True
+
+while True:
+    while True:
+        mail.select("inbox") # connect to inbox
+        result, data = mail.search(None, '(FROM "no-reply@blogabet.com")')
+        ids = data[0] # here's the body, which is raw text of the whole email
+        id_list = ids.split() # data is a list
+        latest_email_id = id_list[-1] # get the latest
+        result, data = mail.fetch(latest_email_id, "(RFC822)") # fetch the email body (RFC822) 
+        raw_email = data[0][1] # here's the body, which is raw text of the whole email
+        email_text = raw_email.decode('ISO-8859-1')
+        if condition:
+            value = email_text
+            condition = False
+        old_value, value = value, email_text
+        if not value == old_value: break    
+
+    pick = re.search("(?P<url>https?://[^\s]+blogabet.com/pick[^\s]+</)", email_text).group("url")
+    pyperclip.copy(pick)
+    pag.keyDown('win')
+    pag.press('4')
+    pag.press('4')
+    pag.keyUp('win')
+    pag.hotkey('ctrl', 't')
+    pag.hotkey('ctrl', 'v')
+    pag.press('enter')

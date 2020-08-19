@@ -1,8 +1,6 @@
 #! python3
 
-import imaplib, re, pyperclip
-import pyautogui as pag
-from selenium import webdriver
+import imaplib, re, pyperclip, pyautogui as pag
 
 mail = imaplib.IMAP4_SSL('imap.gmail.com')
 mail.login('cashcadeur@gmail.com', 'mr619619')

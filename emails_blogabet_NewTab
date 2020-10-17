@@ -22,7 +22,7 @@ while True:
         old_value, value = value, email_text
         if not value == old_value: break    
 
-    pick = re.search("(?P<url>https?://[^\s]+blogabet.com/pick[^\s]+</)", email_text).group("url")
+    pick = re.search("(?P<url>https?://[^\s]+blogabet.com/pick[^\s]+)</", email_text).group("url")
     pyperclip.copy(pick)
     pag.keyDown('win')
     pag.press('4')
